@@ -20,13 +20,11 @@ RUN apt install -y sqlite3 libsqlite3-dev
 
 WORKDIR /alexandrie
 
-#----my stuff
+# Manual Rust install and configures cargo path
 RUN apt-get update
 RUN apt-get install curl -y
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
-
-#----
 
 # Copy everything from docker context into current working dir of docker image being built
 COPY ./ ./
