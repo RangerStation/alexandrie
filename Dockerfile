@@ -2,7 +2,11 @@
 # Dockerfile for the Alexandrie crate registry application
 #
 
-FROM rust:1.40-slim-buster as builder
+FROM ubuntu:latest
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        tzdata \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt update
 RUN apt install -y clang libssl-dev pkg-config
@@ -15,6 +19,14 @@ RUN apt install -y sqlite3 libsqlite3-dev
 #        touch /usr/local/cargo/bin/diesel;
 
 WORKDIR /alexandrie
+
+#----my stuff
+RUN apt-get update
+RUN apt-get install curl -y
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:$PATH"
+
+#----
 
 # Copy everything from docker context into current working dir of docker image being built
 COPY ./ ./
