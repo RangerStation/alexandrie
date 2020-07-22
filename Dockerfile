@@ -29,6 +29,10 @@ ENV PATH="/root/.cargo/bin:$PATH"
 # Copy everything from docker context into current working dir of docker image being built
 COPY ./ ./
 
+# Checks to see if these crate-index and crate-storage exist
+RUN [ ! -d "./crate-index" ] && mkdir -p "./crate-index"
+RUN [ ! -d "./crate-storage" ] && mkdir -p "./crate-storage"
+
 RUN pwd
 RUN ls
 
