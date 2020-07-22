@@ -38,3 +38,5 @@ RUN ls
 
 # build the app
 RUN cargo build --release
+
+CMD cargo run --release
